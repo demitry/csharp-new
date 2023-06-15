@@ -99,7 +99,111 @@ namespace OutVariables
 }
 ```
 
-### Pattern Matching [3] 
+### Pattern Matching [3]
+
+```cs
+namespace PatternMatching
+{
+    public class Shape
+    {
+
+    }
+
+    public class Rectangle : Shape
+    {
+        public int Width, Height;
+    }
+
+    public class Circle : Shape
+    {
+        public int Diameter;
+    }
+
+    internal class Program
+    {
+        public void DisplayShape(Shape shape)
+        {
+            // Old way:
+
+            if (shape is Rectangle)
+            {
+                var rc = (Rectangle)shape; // cast
+
+            }
+            else if (shape is Circle)
+            {
+                // ...
+            }
+
+            var rect = shape as Rectangle;
+            if (rect != null) // nonnull
+            {
+                //...
+            }
+            
+            // in C# 7:
+            
+            if (shape is Rectangle r) // if is Rectangle - assign variable r (new way of casting)
+            {
+                // use r
+            }
+
+            // can also do the invserse
+            if (!(shape is Circle notCircle))
+            {
+                // not a circle!
+            }
+
+
+            switch (shape)
+            {
+                case Circle c: // switch not on shape BUT on the TYPE of shape
+                    // use c
+                    break;
+                case Rectangle sq when (sq.Width == sq.Height):
+                    // square!
+                    break;
+                case Rectangle rr:
+                    // use rr
+                    break;
+            }
+
+            var z = (23, 32);
+
+            // in F# we can switch on tuples, but maybe it could be available in a later versions
+            //https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/pattern-matching
+            //switch (z) // cannot switch on tuples
+            //{
+            //  case (0, 0):
+            //    WriteLine("origin");
+            //}
+        }
+
+
+        static void Main(string[] args)
+        {
+            
+        }
+    }
+}
+```
+
+In F# we can switch on tuples
+
+<https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/pattern-matching>
+
+```fsharp
+let function1 x =
+    match x with
+    | (var1, var2) when var1 > var2 -> printfn "%d is greater than %d" var1 var2
+    | (var1, var2) when var1 < var2 -> printfn "%d is less than %d" var1 var2
+    | (var1, var2) -> printfn "%d equals %d" var1 var2
+
+function1 (1,2)
+function1 (2, 1)
+function1 (0, 0)
+```
+
 ### Tuples [4] 
 ### Deconstruction [5] 
 ### Local Functions [6] 

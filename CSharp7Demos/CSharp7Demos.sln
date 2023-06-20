@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrowExpressions", "ThrowEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralizedAsyncReturnTypes", "GeneralizedAsyncReturnTypes\GeneralizedAsyncReturnTypes.csproj", "{C1ACB62A-F297-4735-98C3-0D365448CFA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteralImprovements", "LiteralImprovements\LiteralImprovements.csproj", "{9AB528DF-4600-40EA-9B8E-3A9D0D2B8C6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{C1ACB62A-F297-4735-98C3-0D365448CFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1ACB62A-F297-4735-98C3-0D365448CFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1ACB62A-F297-4735-98C3-0D365448CFA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AB528DF-4600-40EA-9B8E-3A9D0D2B8C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB528DF-4600-40EA-9B8E-3A9D0D2B8C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB528DF-4600-40EA-9B8E-3A9D0D2B8C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB528DF-4600-40EA-9B8E-3A9D0D2B8C6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

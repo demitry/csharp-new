@@ -682,6 +682,20 @@ namespace GeneralizedAsyncReturnTypes
 
 ### Literal Improvements [11]
 
+```cs
+    int a = 123_321;
+    int b = 123_321______123;
+    int d = 1_22_333; // can place them anywhere, underscores will be ignored by the compiler
+    
+    // cannot do trailing
+    //int c = 1_2_3___; // R# remove
+    // also works for hex
+    
+    long h = 0xAB_BC_D123EF;
+    // also binary
+    var bin = 0b1110_0010_0011;
+```
+
 ## Section 2: What's New in C# 7.1
 ### Why Is My C#7.1 Program Not Compiling?!? [12]
 ### Async Main [13]

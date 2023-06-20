@@ -809,6 +809,8 @@ namespace DefaultExpessions
 
 ### Reference Assemblies [15]
 
+<https://github.com/dotnet/roslyn/blob/main/docs/features/refout.md>
+
 <https://learn.microsoft.com/en-us/dotnet/standard/assembly/reference-assemblies>
 
 csc RefAssemblyDemo..cs **/refout**:Demo.dll
@@ -885,6 +887,50 @@ namespace InferTupleNames
 ```
 
 ### Pattern-Matching with Generics [17]
+
+```cs
+using static System.Console;
+
+namespace PatternMatchingWithGenerics
+{
+    internal class Program
+    {
+        public class Animal
+        {
+
+        }
+
+        public class Pig : Animal
+        {
+
+        }
+
+        public static void Cook<T>(T animal) where T : Animal
+        {
+            // note the red squiggly!
+            // cast is redundant here
+            if (/*(object)*/animal is Pig pig)
+            {
+                // cook and eat it
+                Write("We cooked and ate the pig...");
+            }
+
+            switch (/*(object)*/animal)
+            {
+                case Pig pork:
+                    WriteLine(" and it tastes delicious!");
+                    break;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            var pig = new Pig();
+            Cook(pig);
+        }
+    }
+}
+```
 
 ## Section 3: What's New in C# 7.2
 ### Leading Digit Separators [18]

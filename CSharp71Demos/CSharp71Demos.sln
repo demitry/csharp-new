@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultExpressions", "Defau
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InferTupleNames", "InferTupleNames\InferTupleNames.csproj", "{65732456-D539-41D4-92E3-DBD0D53F08A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternMatchingWithGenerics", "PatternMatchingWithGenerics\PatternMatchingWithGenerics.csproj", "{786BDA88-2E5E-4C73-AD0F-34F8C6340B47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{65732456-D539-41D4-92E3-DBD0D53F08A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65732456-D539-41D4-92E3-DBD0D53F08A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65732456-D539-41D4-92E3-DBD0D53F08A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{786BDA88-2E5E-4C73-AD0F-34F8C6340B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{786BDA88-2E5E-4C73-AD0F-34F8C6340B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{786BDA88-2E5E-4C73-AD0F-34F8C6340B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{786BDA88-2E5E-4C73-AD0F-34F8C6340B47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

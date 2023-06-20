@@ -698,7 +698,46 @@ namespace GeneralizedAsyncReturnTypes
 
 ## Section 2: What's New in C# 7.1
 ### Why Is My C#7.1 Program Not Compiling?!? [12]
+
+Use latest minor C# version (not major version)
+
 ### Async Main [13]
+
+```cs
+namespace  AsyncMain
+{
+    internal class Program
+    {
+        // used to be the case that your demo
+        // would have to reside in a separate
+        // body
+
+        private static string url = "http://google.com/robots.txt";
+
+        /*
+        private static async Task MainAsync(string s)
+        {
+            Console.WriteLine(await new HttpClient().GetStringAsync(s));
+        }
+
+        public static void Main(string[] args)
+        {
+            // fine
+            MainAsync(url).GetAwaiter().GetResult();
+        }
+        */
+
+        // there is no async void, it's
+        // Task Main
+        // Task<int> Main if you need to return
+        static async Task Main(string[] args)
+        {
+            Console.WriteLine(await new HttpClient().GetStringAsync(url));
+        }
+    }
+}
+```
+
 ### Default Expessions [14]
 ### Ref Assemblies [15]
 ### Infer Tuple Names [16]

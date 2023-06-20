@@ -29,8 +29,6 @@ namespace InferTupleNames
               .Where(t => t.Length == 5); // note how .Length is available here
             WriteLine(string.Join(",", result));
 
-            
-
             // tuples produced by deconstruction
             var now = DateTime.UtcNow;
             var u = (now.Hour, now.Minute);

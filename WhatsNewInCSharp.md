@@ -13,7 +13,7 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
         - [Local Functions [6]](#local-functions-6)
         - [Ref Returns and Locals References [7]](#ref-returns-and-locals-references-7)
         - [Expression Bodied Members [8]](#expression-bodied-members-8)
-        - [Throw Expessions [9]](#throw-expessions-9)
+        - [Throw Expressions [9]](#throw-expressions-9)
         - [Generalized Async Return Types [10]](#generalized-async-return-types-10)
         - [Literal Improvements [11]](#literal-improvements-11)
     - [Section 2: What's New in C# 7.1](#section-2-whats-new-in-c-71)
@@ -578,7 +578,66 @@ namespace ExpressionBodiedMembers
 }
 ```
 
-### Throw Expessions [9] 
+### Throw Expressions [9]
+
+```cs
+using static System.Console;
+
+namespace ThrowExpressions
+{
+    internal class Program
+    {
+        public class Demo
+        {
+            public string Name { get; set; }
+
+            // Old way
+            /*
+            public Demo(string name)
+            {
+                if(name == null)
+                {
+                    throw new ArgumentNullException(paramName: nameof(name));
+                }
+
+                Name = name;
+            }
+            */
+
+            // New way
+            public Demo(string name)
+            {
+                Name = name ?? throw new ArgumentNullException(paramName: nameof(name));
+            }
+
+            public int GetValue(int n)
+            {
+                return n > 0 ? n + 1 : throw new Exception();
+            }
+        }
+
+
+        static void Main(string[] args)
+        {
+            int v = -2;
+            try
+            {
+                var demo = new Demo("");
+                v = demo.GetValue(-1); // does not get defaulted!
+            }
+            catch (Exception e)
+            {
+                WriteLine(e);
+            }
+            finally
+            {
+                WriteLine(v);
+            }
+        }
+    }
+}
+```
+
 ### Generalized Async Return Types [10]
 ### Literal Improvements [11]
 

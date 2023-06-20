@@ -20,7 +20,8 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
         - [Why Is My C#7.1 Program Not Compiling?!? [12]](#why-is-my-c71-program-not-compiling-12)
         - [Async Main [13]](#async-main-13)
         - [Default Expressions [14]](#default-expressions-14)
-        - [Ref Assemblies [15]](#ref-assemblies-15)
+        - [Reference Assemblies [15]](#reference-assemblies-15)
+            - [Reference assemblies structure](#reference-assemblies-structure)
         - [Infer Tuple Names [16]](#infer-tuple-names-16)
         - [Pattern-Matching with Generics [17]](#pattern-matching-with-generics-17)
     - [Section 3: What's New in C# 7.2](#section-3-whats-new-in-c-72)
@@ -806,7 +807,40 @@ namespace DefaultExpessions
 }
 ```
 
-### Ref Assemblies [15]
+### Reference Assemblies [15]
+
+<https://learn.microsoft.com/en-us/dotnet/standard/assembly/reference-assemblies>
+
+csc RefAssemblyDemo..cs **/refout**:Demo.dll
+
+only public metadata
+
+contain only the minimum amount of metadata required to represent the library's public API surface
+
+regular assemblies are called implementation assemblies.
+
+Reference assemblies can't be loaded for execution, but they can be passed as compiler input in the same way as implementation assemblies
+
+Use case:
+
+Suppose, you have only the latest version of some library on your machine, but you want to build a program that targets an earlier version of that library. If you compile directly against the implementation assembly, you might inadvertently use API members that aren't available in the earlier version. You'll only find this mistake when testing the program on the target machine. If you compile against the reference assembly for the earlier version, you'll immediately get a compile-time error.
+
+#### Reference assemblies structure
+
+Reference assemblies are an expansion of the related concept, metadata-only assemblies. Metadata-only assemblies have their method bodies replaced with a single throw null body, but include all members except anonymous types. The reason for using throw null bodies (as opposed to no bodies) is so that PEVerify can run and pass (thus validating the completeness of the metadata).
+
+Reference assemblies further remove metadata (private members) from metadata-only assemblies.
+
+The metadata in reference assemblies continues to keep the following information:
+
+- All types, including private and nested types.
+- All attributes, even internal ones.
+- All virtual methods.
+- Explicit interface implementations.
+- Explicitly implemented properties and events, because their accessors are virtual.
+- All fields of structures.
+
+
 ### Infer Tuple Names [16]
 ### Pattern-Matching with Generics [17]
 

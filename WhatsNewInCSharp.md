@@ -933,7 +933,19 @@ namespace PatternMatchingWithGenerics
 ```
 
 ## Section 3: What's New in C# 7.2
+
 ### Leading Digit Separators [18]
+
+```cs
+    // binary
+    var x = 0b_1111_0000;
+    
+    // hex
+    var y = 0x_baad_f00d;
+    
+    //var z = _baad_food; // No
+```
+
 ### 'private protected' Access Modifier [19]
 ### Non-trailing named arguments [20]
 ### 'in' Parameters [21]

@@ -94,9 +94,9 @@
 
             Point copyOfOrigin = Point.Origin; // by value
 
-            //ref var o = ref Point.Origin; // connot, because Origin is read only
+            //ref var o = ref Point.Origin; // cannot, because Origin is read only
 
-            ref readonly var originRef = ref copyOfOrigin;
+            ref readonly var originRef = ref Point.Origin;
             
             //originRef.X++; //CS1059	The operand of an increment or decrement operator must be a variable, property or indexer
         }

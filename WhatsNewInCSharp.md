@@ -31,6 +31,9 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
         - ['in' Parameters [21]](#in-parameters-21)
         - ['ref readonly' Variables [22]](#ref-readonly-variables-22)
         - ['ref struct' and Span<T> [23]](#ref-struct-and-spant-23)
+            - [Memory Types](#memory-types)
+            - [The problem](#the-problem)
+            - [Ref Struct Type](#ref-struct-type)
         - [Span<T> Demo [24]](#spant-demo-24)
     - [Section 4: What's New in C# 7.3](#section-4-whats-new-in-c-73)
         - [Performance Improvements [25]](#performance-improvements-25)
@@ -1119,12 +1122,69 @@ namespace InParameters
 
             //ref var o = ref Point.Origin; // connot, because Origin is read only
 
-            ref readonly var originRef = ref copyOfOrigin;
+            ref readonly var originRef = ref Point.Origin;
             
-            //originRef.X++; //CS1059	The operand of an increment or decrement operator must be a variable, property or indexer
+            //originRef.X++; //CS1059 The operand of an increment or decrement operator must be a variable, property or indexer
 ```
 
 ### 'ref struct' and Span<T> [23]
+
+#### Memory Types
+
+- Managed memory (new operator)
+  - Small objects < 85 k (generational part of managed heap)
+  - Large objects > 85 k (Large Object Heap, LOH and)
+  - Released by GC
+
+- Unmanaged memory
+  - Allocated on unmanaged heap with Marshal.AllocHGlobal / CoTaskMem
+  - Released with Marshal.FreeHGlobal / CoTaskMem
+  - GC not involved
+
+- Stack memory (stackallock keyword)
+  - Very fast allocation / deallocation
+  - Very small < 1 Mb, overrallocate - and you set SO Stack Overflow / process dies
+  - Nobody uses it :)
+
+#### The problem
+
+- Imagine you want to refer to a part of the string
+  - ... without making a copy of the string. But Substring() allocates a copy.
+  
+- You can refer to the start/end indices or use pointers
+
+- More generally you can refer to
+  - Memory where a memory range begins
+  - Location/index where you need to start takung the values
+  - How many values to take / index of final element
+
+- We need a general way of referring to a range of values in memory (for reading, copying, etc.)
+
+- That generalizarion is expressed as Span<T>
+
+#### Ref Struct Type
+
+- A value type that must be stack-allocated
+
+- Can never be created on the heap as member of another class
+
+- Main motivation - to support Span<T>
+
+- Compiler-enforced rules
+  - Cannot box a ref struct (i.e. cannot assign to object, dynamic or interface type)
+  - Cannot declare a ref struct as a member of another class or normal struct
+  - Cannot declare local ref struct variables in async methods or synchronous methods that return Task or Task-like types.
+  - Cannot declare ref struct locals in iterators.
+  - Cannot capture ref struct vars in lambda expressions or local functions.
+
+- Rules prevent a ref struct from being promoted to the managed heap
+
+Sad news:
+
+Warning: in .NET Framework, current Span<T> in System.Memory NuGet is not a ref struct, therefore all of theese limitations have not yet kicked in.
+
+TODO: read more
+
 ### Span<T> Demo [24]
 
 ## Section 4: What's New in C# 7.3

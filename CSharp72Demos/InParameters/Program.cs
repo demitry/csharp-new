@@ -19,6 +19,15 @@
             public void Reset() => X = Y = 0;
 
             public override string ToString() => $"({X}, {Y})";
+
+            //public static Point Origin = new Point();
+
+            public static Point origin = new Point();
+
+            public static ref readonly Point Origin => ref origin;
+
+            //We had ref for classes, NOW we have ref for value types
+            // - read only ref for value type
         }
 
         // Pass copy of 4 doubles = 32 bytes
@@ -80,6 +89,16 @@
             Console.WriteLine( $"The distance between {p1} and {p2} is {distance}" );
 
             changeMe(ref p2);
+
+            var distanceFromOrigin = MeasureDistance(in p1, Point.Origin); // Point = value type, you are copying, We want to ref, now we have ref read only
+
+            Point copyOfOrigin = Point.Origin; // by value
+
+            //ref var o = ref Point.Origin; // connot, because Origin is read only
+
+            ref readonly var originRef = ref copyOfOrigin;
+            
+            //originRef.X++; //CS1059	The operand of an increment or decrement operator must be a variable, property or indexer
         }
 
         static void Main(string[] args)

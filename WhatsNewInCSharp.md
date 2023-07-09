@@ -40,6 +40,7 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
             - [fixed statement - pin a variable for pointer operations](#fixed-statement---pin-a-variable-for-pointer-operations)
             - [Indexed fields do not require pinning](#indexed-fields-do-not-require-pinning)
             - [ref local may be reassigned](#ref-local-may-be-reassigned)
+            - [stackalloc arrays support initializers](#stackalloc-arrays-support-initializers)
         - [Feature Enhancements [26]](#feature-enhancements-26)
         - [New Compiler Features [27]](#new-compiler-features-27)
         - [Bonus Lecture: Other Courses at a Discount [28]](#bonus-lecture-other-courses-at-a-discount-28)
@@ -1386,6 +1387,14 @@ ref local variables can now be reassigned to refer to some different location
 ```cs
     ref MyStruct refLocal = ref MyStruct;
     refLocal = ref someOtherStruct;
+```
+
+#### stackalloc arrays support initializers
+
+```cs
+    int* pArr1 = stackalloc int[3] {1,2,3};
+    
+    int* pArr2 = stackalloc int[] {4,5,6};
 ```
 
 ### Feature Enhancements [26]

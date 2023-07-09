@@ -42,6 +42,8 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
             - [ref local may be reassigned](#ref-local-may-be-reassigned)
             - [stackalloc arrays support initializers](#stackalloc-arrays-support-initializers)
         - [Feature Enhancements [26]](#feature-enhancements-26)
+            - [Attributes on backing fields of auto-props](#attributes-on-backing-fields-of-auto-props)
+            - ['In' method overload resolution tiebreaker](#in-method-overload-resolution-tiebreaker)
         - [New Compiler Features [27]](#new-compiler-features-27)
         - [Bonus Lecture: Other Courses at a Discount [28]](#bonus-lecture-other-courses-at-a-discount-28)
     - [Section 5: What's New in C# 8](#section-5-whats-new-in-c-8)
@@ -1398,7 +1400,31 @@ ref local variables can now be reassigned to refer to some different location
 ```
 
 ### Feature Enhancements [26]
+
+#### Attributes on backing fields of auto-props
+
+attach to field (not on prop itself)
+
+```cs
+    [field: SomeCleverAttribute]
+    public float SomeProperty { get; set; }
+```
+
+#### 'In' method overload resolution tiebreaker
+
+When C# introduced the **in** modifier, overloads with and without in woild cause ambiguity:
+
+```
+static void Foo(X arg);
+static void Foo(in X arg);
+```
+
+In C# 7.3, the by-value (first) overload is preferred to the by-readonly-ref bersion.
+
+To specify the use of read-only-ref version, you must include **in** modifier when calling the method.
+
 ### New Compiler Features [27]
+
 ### Bonus Lecture: Other Courses at a Discount [28]
 
 ## Section 5: What's New in C# 8

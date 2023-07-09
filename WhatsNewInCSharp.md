@@ -38,6 +38,8 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
     - [Section 4: What's New in C# 7.3](#section-4-whats-new-in-c-73)
         - [Performance Improvements [25]](#performance-improvements-25)
             - [fixed statement - pin a variable for pointer operations](#fixed-statement---pin-a-variable-for-pointer-operations)
+            - [Indexed fields do not require pinning](#indexed-fields-do-not-require-pinning)
+            - [ref local may be reassigned](#ref-local-may-be-reassigned)
         - [Feature Enhancements [26]](#feature-enhancements-26)
         - [New Compiler Features [27]](#new-compiler-features-27)
         - [Bonus Lecture: Other Courses at a Discount [28]](#bonus-lecture-other-courses-at-a-discount-28)
@@ -1357,6 +1359,34 @@ namespace FixedStatement
 
 You can use the fixed statement only in an unsafe context. The code that contains unsafe blocks must be compiled with the AllowUnsafeBlocks compiler option.
 
+#### Indexed fields do not require pinning
+
+```cs
+unsafe struct MyStruct
+{
+    public fixed int myField[9];
+}
+```
+
+In earlier C# you had to pin a variable to access of the integers in myField.
+
+But in C# 7.3 you can just write:
+
+```cs
+    var ms = new MyStruct();
+    int p = ms.myField[3];
+```
+
+Variable p does not need to be pinned; you still need to be in unsafe context.
+
+#### ref local may be reassigned
+
+ref local variables can now be reassigned to refer to some different location
+
+```cs
+    ref MyStruct refLocal = ref MyStruct;
+    refLocal = ref someOtherStruct;
+```
 
 ### Feature Enhancements [26]
 ### New Compiler Features [27]

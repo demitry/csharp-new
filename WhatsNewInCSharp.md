@@ -48,6 +48,10 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
             - [Tuples equality](#tuples-equality)
             - [Tuples vs System.Tuple](#tuples-vs-systemtuple)
         - [New Compiler Features [27]](#new-compiler-features-27)
+            - [C# compiler options](#c-compiler-options)
+            - [PublicSign](#publicsign)
+            - [Pathmap PDBs](#pathmap-pdbs)
+            - [Deterministic](#deterministic)
         - [Bonus Lecture: Other Courses at a Discount [28]](#bonus-lecture-other-courses-at-a-discount-28)
     - [Section 5: What's New in C# 8](#section-5-whats-new-in-c-8)
         - [Nullable Reference Types [29]](#nullable-reference-types-29)
@@ -1495,6 +1499,36 @@ C# tuples, which are backed by System.ValueTuple types, are different from tuple
 - Data members of System.ValueTuple types are fields. Data members of System.Tuple types are properties.
 
 ### New Compiler Features [27]
+
+#### C# compiler options
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/>
+
+#### PublicSign
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/security#publicsign>
+
+- PublicSign / -publicsign: Publicly sign the assembly.
+- DelaySign / -delaysign: Delay-sign the assembly using only the public portion of the strong - name key.
+KeyFile / -keyfile : Specify a strong name key file.
+- KeyContainer / -keycontainer: Specify a strong name key container.
+- HighEntropyVA / -highentropyva: Enable high-entropy Address Space Layout Randomization (ASLR)
+
+PublicSign
+This option causes the compiler to apply a public key but doesn't actually sign the assembly. The PublicSign option also sets a bit in the assembly that tells the runtime that the file is signed.
+
+```xml
+    <PublicSign>true</PublicSign>
+```
+
+The PublicSign option requires the use of the KeyFile or KeyContainer option. The KeyFile and KeyContainer options specify the public key. The PublicSign and DelaySign options are mutually exclusive.
+
+#### Pathmap (PDBs)
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/advanced#pathmap>
+
+#### Deterministic
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/code-generation#deterministic>
 
 ### Bonus Lecture: Other Courses at a Discount [28]
 

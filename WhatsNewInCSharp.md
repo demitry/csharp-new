@@ -44,6 +44,7 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
         - [Feature Enhancements [26]](#feature-enhancements-26)
             - [Attributes on backing fields of auto-props](#attributes-on-backing-fields-of-auto-props)
             - ['In' method overload resolution tiebreaker](#in-method-overload-resolution-tiebreaker)
+            - [Extended expression variables in initializers](#extended-expression-variables-in-initializers)
         - [New Compiler Features [27]](#new-compiler-features-27)
         - [Bonus Lecture: Other Courses at a Discount [28]](#bonus-lecture-other-courses-at-a-discount-28)
     - [Section 5: What's New in C# 8](#section-5-whats-new-in-c-8)
@@ -1422,6 +1423,19 @@ static void Foo(in X arg);
 In C# 7.3, the by-value (first) overload is preferred to the by-readonly-ref bersion.
 
 To specify the use of read-only-ref version, you must include **in** modifier when calling the method.
+
+#### Extended expression variables in initializers
+
+C# syntax for **out** variables has been extwnded:
+
+Now out can happen in:
+
+- Field initializers
+- Property initializers
+- Constructor initializers
+- Query clauses
+
+Legal but unusual behaviour
 
 ### New Compiler Features [27]
 

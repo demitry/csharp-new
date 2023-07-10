@@ -1534,6 +1534,86 @@ The PublicSign option requires the use of the KeyFile or KeyContainer option. Th
 
 ## Section 5: What's New in C# 8
 ### Nullable Reference Types [29]
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types>
+
+- #nullable enable //per file
+- on the project level
+```
+<NullableReferenceTypes>true</NullableReferenceTypes> // on the project level
+```
+- Does not change executed code
+- Uses a [NullableAttribute(flags)] to decorate all members
+- BCL does NOT support it? yet?
+- "Remapping" from T to T? has no effect
+- Type? u = t;
+- Console.write(u.Name); // no warning
+
+```cs
+#nullable enable //per file
+//<NullableReferenceTypes>true</NullableReferenceTypes> // on the project level
+namespace NullableRefTypes
+{
+    public class Person
+    {
+        public Person(string firstName, string? lastName) => 
+            (FirstName, LastName) = (firstName, lastName);
+        
+        public string FirstName { get; set; }
+        public string? LastName { get; set; }
+
+        public string FullName => $"{FirstName}, {LastName?[0]}";
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person("Dmitri", "Popov");
+            Console.WriteLine(person.FullName);
+            Person person2 = new Person("Dmitri", null);
+            Console.WriteLine(person2.FullName);
+        }
+    }
+}
+```
+
+- #nullable enable
+- Compiler is more strict
+- string? != Nullable<string>
+- It is still a string but we need additional null checks
+- public string FullName => $"{FirstName}, {LastName?[0]}";
+- [CanBeNull] Foo foo -> Foo? foo
+
+```cs
+string? s = GetString();
+char c = s[0]; // warning
+if(s!=null)
+{
+    char c = s[0]; // NO warning
+}
+```
+
+Two ways to stop null checks:
+
+- Keep the var non-nullable
+- Wrute exoression with a bang (!)
+
+- (null as Person).FullName // warning
+- (null as Person)!.FullName // NO warning
+- (null as Person)!!!!!!!!.FullName //Error CS8715	Duplicate null suppression operator ('!')
+- (null as Person)!?.FullName // DOES in fact perform the null check
+- (null as Person)?!.FullName // won't compile
+
+```cs
+            var n1 = (null as Person).FullName; // warning
+            var n2 = (null as Person)!.FullName; // NO warning
+            //var n3 = (null as Person)!!!!!!!!.FullName; // NO warning, was also legal? No, it is Error CS8715	Duplicate null suppression operator ('!')
+            var n4 = (null as Person)!?.FullName;// DOES in fact perform the null check
+            //var n5 = (null as Person)?!.FullName; // won't compile
+```
+
+
 ### Indices and Ranges [30]
 ### Default Interface Members [31]
 ### Pattern Matching [32]

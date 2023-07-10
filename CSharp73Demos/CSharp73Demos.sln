@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FixedStatement", "FixedStat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExprVarsInitializers", "ExprVarsInitializers\ExprVarsInitializers.csproj", "{483B6E18-1D99-4C2A-BB0B-43C14A769876}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuples", "Tuples\Tuples.csproj", "{162B35C3-6393-4DE0-A9DB-4D5E9A7BD533}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{483B6E18-1D99-4C2A-BB0B-43C14A769876}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{483B6E18-1D99-4C2A-BB0B-43C14A769876}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{483B6E18-1D99-4C2A-BB0B-43C14A769876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{162B35C3-6393-4DE0-A9DB-4D5E9A7BD533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{162B35C3-6393-4DE0-A9DB-4D5E9A7BD533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{162B35C3-6393-4DE0-A9DB-4D5E9A7BD533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{162B35C3-6393-4DE0-A9DB-4D5E9A7BD533}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

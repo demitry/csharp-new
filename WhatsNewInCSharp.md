@@ -45,6 +45,8 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
             - [Attributes on backing fields of auto-props](#attributes-on-backing-fields-of-auto-props)
             - ['In' method overload resolution tiebreaker](#in-method-overload-resolution-tiebreaker)
             - [Extended expression variables in initializers](#extended-expression-variables-in-initializers)
+            - [Tuples equality](#tuples-equality)
+            - [Tuples vs System.Tuple](#tuples-vs-systemtuple)
         - [New Compiler Features [27]](#new-compiler-features-27)
         - [Bonus Lecture: Other Courses at a Discount [28]](#bonus-lecture-other-courses-at-a-discount-28)
     - [Section 5: What's New in C# 8](#section-5-whats-new-in-c-8)
@@ -1436,6 +1438,61 @@ Now out can happen in:
 - Query clauses
 
 Legal but unusual behaviour
+
+```cs
+namespace ExprVarsInitializers
+{
+    public class A
+    {
+        public A(int i, out int j) { j = i; }
+    }
+
+    public class B : A
+    {
+        public B(int i) : base(i, out var j)
+        {
+            Console.WriteLine($"j: {j}");
+        }
+    }
+
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            B b = new B(99);
+        }
+    }
+}
+```
+
+Tuples
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples>
+
+#### Tuples equality
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples#tuple-equality>
+
+```cs
+(int a, byte b) left = (5, 10);
+(long a, int b) right = (5, 10);
+Console.WriteLine(left == right);  // output: True
+Console.WriteLine(left != right);  // output: False
+
+var t1 = (A: 5, B: 10);
+var t2 = (B: 5, A: 10);
+Console.WriteLine(t1 == t2);  // output: True
+Console.WriteLine(t1 != t2);  // output: False
+```
+
+#### Tuples vs System.Tuple
+
+C# tuples, which are backed by System.ValueTuple types, are different from tuples that are represented by System.Tuple types. The main differences are as follows:
+
+- System.ValueTuple types are value types. System.Tuple types are reference types.
+- System.ValueTuple types are mutable. System.Tuple types are immutable.
+- Data members of System.ValueTuple types are fields. Data members of System.Tuple types are properties.
 
 ### New Compiler Features [27]
 

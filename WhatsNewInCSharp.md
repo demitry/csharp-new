@@ -1714,6 +1714,11 @@ namespace IndicesAndRanges
 ```
 
 ### Default Interface Members [31]
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-8.0/default-interface-methods>
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/interface-implementation/default-interface-methods-versions>
+
 ### Pattern Matching [32]
 
 ## Section 6: What's New in C# 9

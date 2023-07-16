@@ -63,6 +63,12 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
             - [Interface Inheritance: The most specific implementation is called](#interface-inheritance-the-most-specific-implementation-is-called)
             - [Diamond inheritance](#diamond-inheritance)
         - [Pattern Matching [32]](#pattern-matching-32)
+            - [Property Patterns](#property-patterns)
+            - [Empty vs Default](#empty-vs-default)
+            - [Recursive patterns](#recursive-patterns)
+            - [Switch-Based Validation](#switch-based-validation)
+            - [Recursive Patterns with Type Checks](#recursive-patterns-with-type-checks)
+            - [Deconstruction](#deconstruction)
     - [Section 6: What's New in C# 9](#section-6-whats-new-in-c-9)
         - [Introduction [33]](#introduction-33)
         - [Record Types [34]](#record-types-34)
@@ -1842,6 +1848,105 @@ namespace IndicesAndRanges
 ```
 
 ### Pattern Matching [32]
+
+"match" in F#
+
+#### Property Patterns
+
+```cs
+        struct PhoneNumber
+        {
+            public int Code, Number;
+        }
+
+        static void Main(string[] args)
+        {
+            var phoneNumber = new PhoneNumber();
+
+            var origin = phoneNumber switch
+            {
+                { Number: 112 } => "Emergency",
+                { Code: 44 } => "UK"
+            };
+            // Warning CS8509 The switch expression does not handle all possible values of its input type (it is not exhaustive).
+        }
+```
+
+#### Empty vs Default
+
+```cs
+            var origin3 = phoneNumber switch
+            {
+                { Number: 112 } => "Emergency",
+                { Code: 44 } => "UK",
+                { } => "Unknown",
+            };
+
+            // - Is it switch exhaustive?
+            // - It depends on #nullable enable/disable
+```
+
+#### Recursive patterns
+
+```cs
+            var person = new Person();
+            var personsOrigin = person switch
+            {
+                { Name: "Dave" } => "USA",
+                { PhoneNumber: { Code: 46 } } => "Sweden",
+                { Name: var name } => $"No idea where {name} lives"
+            };
+```
+
+#### Switch-Based Validation
+
+```cs
+            var error = person switch
+            {
+                null => "Object missing",
+                { PhoneNumber: null } => "Phone number missing entirely",
+                { PhoneNumber: { Number : 0 } } => "Actual number missing",
+                { PhoneNumber: { Code: var code } } when code < 0 => "WTF?",
+                { } => null //no error
+            };
+
+            if(error != null)
+            {
+                throw new ArgumentException(error);
+            }
+```
+
+#### Recursive Patterns with Type Checks
+
+```cs
+        public class ExtendedPhoneNumber
+        {
+            public int Code, Number;
+
+            public string Office { get; set; }
+        }
+
+        public class Helper
+        {
+            // Recursive Patterns with Type Checks
+            public IEnumerable<ExtendedPhoneNumber> Numbers { get; set; }
+
+            IEnumerable<int> GetMainOfficeNumbers()
+            {
+                foreach (var pn in Numbers)
+                {
+                    if( pn is ExtendedPhoneNumber { Office: "main" })
+                        yield return pn.Number;
+                }
+            }
+        }
+```
+
+#### Deconstruction
+
+```cs
+
+```
 
 ## Section 6: What's New in C# 9
 ### Introduction [33]

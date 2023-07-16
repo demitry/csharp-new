@@ -57,6 +57,11 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
         - [Nullable Reference Types [29]](#nullable-reference-types-29)
         - [Indices and Ranges [30]](#indices-and-ranges-30)
         - [Default Interface Members [31]](#default-interface-members-31)
+            - [Before version C# 8 - Behavioral Mixins](#before-version-c-8---behavioral-mixins)
+            - [C# 8 Default Interface Members](#c-8-default-interface-members)
+            - [Modifiers](#modifiers)
+            - [Interface Inheritance: The most specific implementation is called](#interface-inheritance-the-most-specific-implementation-is-called)
+            - [Diamond inheritance](#diamond-inheritance)
         - [Pattern Matching [32]](#pattern-matching-32)
     - [Section 6: What's New in C# 9](#section-6-whats-new-in-c-9)
         - [Introduction [33]](#introduction-33)
@@ -1718,6 +1723,123 @@ namespace IndicesAndRanges
 <https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-8.0/default-interface-methods>
 
 <https://learn.microsoft.com/en-us/dotnet/csharp/advanced-topics/interface-implementation/default-interface-methods-versions>
+
+#### Before version C# 8 - Behavioral Mixins
+
+```cs
+    // Before version C# 8:
+    // Behavioral Mixins
+    // Classes can have any number of interfaces, you can attach behavior. 
+    // You cannot attach state, there is no "extension field" or "extension property".
+    
+    public interface IHumanBefore
+    {
+        string Name { get; }
+    }
+
+    public static class ExtensionMethods
+    {
+        public static void Greet(this IHumanBefore human)
+        {
+            Console.WriteLine($"Hello, I am {human.Name}");
+        }
+    }
+```
+
+#### C# 8 Default Interface Members
+
+```cs
+    // In C# 8 you can write implementation details inside the interface
+
+    public interface IHuman
+    {
+        string Name { get; }
+
+        public void SayHello()
+        {
+            Console.WriteLine($"Hello, I am {Name}");
+        }
+    }
+
+    public class Human : IHuman
+    {
+        public string Name { get; set; }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // The way it works is very strange,
+            // It is not how you are expecting:
+            Human human = new Human() { Name = "John" };
+            //human.SayHello(); // will not compile, CS1061	'Human' does not contain a definition for 'SayHello' ...
+            // Class unaware of default interface implementation
+
+            // The only way to call SayHello() - cast to interface:
+            IHuman human1 = new Human() { Name = "Bob" };
+            human1.SayHello();
+
+            ((IHuman)new Human() { Name = "Henry" }).SayHello();
+        }
+    }
+```
+
+#### Modifiers
+
+- Interface syntax extended to accept protected, internal, public, virtual
+- By defasult, default interface methods are virtual unless sealed/private is used
+- Interfaces without bodies are abstract
+- Interfaces can inmplement interfaces
+
+#### Interface Inheritance: The most specific implementation is called
+
+```cs
+    public interface IFriendlyHuman : IHuman
+    {
+        string Name { get; }
+
+        //void SayHello()
+        //{
+        //    Console.WriteLine($"Greeting, my name is {Name}");
+        //}
+
+        // Implicit interface method implementation
+        void IHuman.SayHello()
+        {
+            Console.WriteLine($"Hello (2), I am {Name}");
+        }
+    }
+
+    //...
+    
+    ((IHuman)new Human() { Name = "Henry" }).SayHello(); // Hello (2) ... is called
+    // Independent methods:
+    ((IFriendlyHuman)new Human() { Name = "Henry" }).SayHello(); // Hello (2) ... is called
+    // The most specific implementation is called
+```
+
+#### Diamond inheritance
+
+```cs
+    interface ITalk { void Greet(); }
+
+    interface IAmBritish : ITalk
+    {
+        void ITalk.Greet() => Console.WriteLine("Good day!");
+    }
+
+    interface IAmAmerican : ITalk
+    {
+        void ITalk.Greet() => Console.WriteLine("Howdy!");
+    }
+
+    // Diamond inheritance = Coflict
+    //class DualNation : IAmBritish, IAmAmerican { }
+    // CS8705
+    // Interface member 'ITalk.Greet()' does not have a most specific implementation.
+    // Neither 'IAmBritish.ITalk.Greet()', nor 'IAmAmerican.ITalk.Greet()' are most specific.
+```
 
 ### Pattern Matching [32]
 

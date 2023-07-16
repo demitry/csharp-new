@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullableRefTypes", "NullableRefTypes\NullableRefTypes.csproj", "{F870318A-9FF6-4221-834F-CBFD505B7E30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NullableRefTypes", "NullableRefTypes\NullableRefTypes.csproj", "{F870318A-9FF6-4221-834F-CBFD505B7E30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndicesAndRanges", "IndicesAndRanges\IndicesAndRanges.csproj", "{C6158C5E-86F6-4DF4-8DCB-3BA69C15353A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndicesAndRanges", "IndicesAndRanges\IndicesAndRanges.csproj", "{C6158C5E-86F6-4DF4-8DCB-3BA69C15353A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultInterfaceMembers", "DefaultInterfaceMembers\DefaultInterfaceMembers.csproj", "{F5C1F0D7-6314-4F87-B25B-C0EB876E8FC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C6158C5E-86F6-4DF4-8DCB-3BA69C15353A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6158C5E-86F6-4DF4-8DCB-3BA69C15353A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6158C5E-86F6-4DF4-8DCB-3BA69C15353A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C1F0D7-6314-4F87-B25B-C0EB876E8FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C1F0D7-6314-4F87-B25B-C0EB876E8FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C1F0D7-6314-4F87-B25B-C0EB876E8FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C1F0D7-6314-4F87-B25B-C0EB876E8FC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

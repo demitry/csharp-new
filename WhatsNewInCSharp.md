@@ -1945,7 +1945,23 @@ namespace IndicesAndRanges
 #### Deconstruction
 
 ```cs
-
+// in recrangle class:
+            public void Deconstruct(out (double X, double Y) origin, out double width, out double height)
+            {
+                origin.X = Origin.X;
+                origin.Y = Origin.Y;
+                width = Width;
+                height = Height;
+            }
+//So we can switch
+                var type = shape switch
+                {
+                    Rectangle((0, 0), 0, 0) => "Point at origin",
+                    Circle((0, 0), _) => "Circle at origin",
+                    Rectangle(_, var w, var h) when w == h => "Square",
+                    Rectangle((var x, var y), var w, var h) => $"A {w}x{h} rectangle at ({x},{y})",
+                    _ => "something else"
+                };
 ```
 
 ## Section 6: What's New in C# 9

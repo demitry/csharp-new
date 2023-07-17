@@ -96,5 +96,4 @@ namespace DefaultInterfaceMembers
     // CS8705
     // Interface member 'ITalk.Greet()' does not have a most specific implementation.
     // Neither 'IAmBritish.ITalk.Greet()', nor 'IAmAmerican.ITalk.Greet()' are most specific.
-
 }

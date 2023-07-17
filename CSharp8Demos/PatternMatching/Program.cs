@@ -1,4 +1,6 @@
 ﻿#nullable enable
+using static PatternMatching.Program;
+
 namespace PatternMatching
 {
     internal class Program
@@ -58,9 +60,59 @@ namespace PatternMatching
             var error = person switch
             {
                 null => "Object missing",
-                { PhoneNumber: null } => "Phone number missing enrirely",
+                { PhoneNumber: null } => "Phone number missing entirely",
+                { PhoneNumber: { Number : 0 } } => "Actual number missing",
+                { PhoneNumber: { Code: var code } } when code < 0 => "WTF?",
+                { } => null //no error
+            };
 
+            if(error != null)
+            {
+                throw new ArgumentException(error);
             }
         }
+
+        public class ExtendedPhoneNumber
+        {
+            public int Code, Number;
+
+            public string Office { get; set; }
+        }
+
+        public class Helper
+        {
+            // Recursive Patterns with Type Checks
+            public IEnumerable<ExtendedPhoneNumber> Numbers { get; set; }
+
+            IEnumerable<int> GetMainOfficeNumbers()
+            {
+                foreach (var pn in Numbers)
+                {
+                    if( pn is ExtendedPhoneNumber { Office: "main" })
+                        yield return pn.Number;
+                }
+            }
+        }
+
+        // Deconstruction
+
+        public class Shape
+        {
+            public string Name { get; set; }
+        }
+
+        public class Rectangle : Shape
+        {
+
+        }
+
+        public class Ciccle : Shape
+        {
+
+        }
+
+        //var type = shape switch
+        //{
+        //}
     }
 }

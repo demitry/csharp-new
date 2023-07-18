@@ -1965,7 +1965,38 @@ namespace IndicesAndRanges
 ```
 
 ## Section 6: What's New in C# 9
+
 ### Introduction [33]
+
+- Sim-shipped with .NET5
+- Still on VS 2019
+- New tech: Blazor, EF Core 5, Xamarin Forms 5 etc.
+- New language features
+
+Content:
+
+- New keywords:
+  - **init and or not**
+- Record Types
+- Top-level Calls
+- Initial Setters
+- Pattern-Matching Improvements (and or not + relational patters...)
+- Performance and Interop
+  - Native sized integers (nint / nuint)
+  - Function pointers
+  - SkipLocalsInit
+- Fit and Finish
+  - Target typed new,
+  - Target type resolution of conditional expressions,
+  - Static modifier for lambda expressions and anonymous methods
+  - Covariant return types
+  - foreach GetEnumerator() use
+  - Discards as parameters to lambdas
+  - Attributes on local functions
+- C# Code Generators
+  - Partial Method Syntax
+  - Module Initializers
+  
 ### Record Types [34]
 ### Top-Level Calls [35]
 ### Initial Setters [36]

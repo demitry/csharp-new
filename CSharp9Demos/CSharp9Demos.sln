@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PositionalRecords", "Positi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordsWithExpressions", "RecordsWithExpressions\RecordsWithExpressions.csproj", "{F5C1A960-C41A-48F9-894C-D0C3C162C351}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopLevelCalls", "TopLevelCalls\TopLevelCalls.csproj", "{68D61453-A995-4FB6-B6C3-9347F3B306FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F5C1A960-C41A-48F9-894C-D0C3C162C351}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5C1A960-C41A-48F9-894C-D0C3C162C351}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5C1A960-C41A-48F9-894C-D0C3C162C351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D61453-A995-4FB6-B6C3-9347F3B306FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D61453-A995-4FB6-B6C3-9347F3B306FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D61453-A995-4FB6-B6C3-9347F3B306FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D61453-A995-4FB6-B6C3-9347F3B306FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

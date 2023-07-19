@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordsWithExpressions", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopLevelCalls", "TopLevelCalls\TopLevelCalls.csproj", "{68D61453-A995-4FB6-B6C3-9347F3B306FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitialSetters", "InitialSetters\InitialSetters.csproj", "{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{68D61453-A995-4FB6-B6C3-9347F3B306FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68D61453-A995-4FB6-B6C3-9347F3B306FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68D61453-A995-4FB6-B6C3-9347F3B306FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -72,6 +72,9 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
     - [Section 6: What's New in C# 9](#section-6-whats-new-in-c-9)
         - [Introduction [33]](#introduction-33)
         - [Record Types [34]](#record-types-34)
+            - [Records Equality](#records-equality)
+            - [Positional Records](#positional-records)
+            - [GetHashCode](#gethashcode)
         - [Top-Level Calls [35]](#top-level-calls-35)
         - [Initial Setters [36]](#initial-setters-36)
         - [Pattern Matching Improvements [37]](#pattern-matching-improvements-37)
@@ -2001,6 +2004,8 @@ Content:
 
 - Major feature of C# 9 programming language
 
+#### Records Equality
+
 ```cs
 namespace RecordTypes
 {
@@ -2079,6 +2084,192 @@ namespace RecordTypes
     }
 }
 ```
+
+#### Positional Records
+
+```cs
+namespace PositionalRecords
+{
+    public record Point(int x, int y); // avoids typing even a ctor
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var origin = new Point(0, 0);
+            var (x,y) = origin; // deconstruct
+
+            Console.WriteLine($"({x},{y})");
+
+            var p = new Point(2, 3);
+            Console.WriteLine(p.GetHashCode());
+        }
+    }
+}
+```
+
+#### GetHashCode
+
+```cs
+    [CompilerGenerated]
+    public override int GetHashCode()
+    {
+      return (EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<int>.Default.GetHashCode(this.\u003Cx\u003Ek__BackingField)) * -1521134295 + EqualityComparer<int>.Default.GetHashCode(this.\u003Cy\u003Ek__BackingField);
+    }
+```
+
+Decompiled:
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Text;
+
+namespace PositionalRecords
+{
+  [NullableContext(1)]
+  [Nullable(0)]
+  public class Point : 
+  /*[Nullable(0)]*/
+  IEquatable<Point>
+  {
+    [CompilerGenerated]
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    private readonly int \u003Cx\u003Ek__BackingField;
+    [CompilerGenerated]
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    private readonly int \u003Cy\u003Ek__BackingField;
+
+    public Point(int x, int y)
+    {
+      this.\u003Cx\u003Ek__BackingField = x;
+      this.\u003Cy\u003Ek__BackingField = y;
+      base.\u002Ector();
+    }
+
+    [CompilerGenerated]
+    protected virtual Type EqualityContract
+    {
+      [CompilerGenerated] get
+      {
+        return typeof (Point);
+      }
+    }
+
+    public int x
+    {
+      [CompilerGenerated] get
+      {
+        return this.\u003Cx\u003Ek__BackingField;
+      }
+      [CompilerGenerated] init
+      {
+        this.\u003Cx\u003Ek__BackingField = value;
+      }
+    }
+
+    public int y
+    {
+      [CompilerGenerated] get
+      {
+        return this.\u003Cy\u003Ek__BackingField;
+      }
+      [CompilerGenerated] init
+      {
+        this.\u003Cy\u003Ek__BackingField = value;
+      }
+    }
+
+    [CompilerGenerated]
+    public override string ToString()
+    {
+      StringBuilder builder = new StringBuilder();
+      builder.Append("Point");
+      builder.Append(" { ");
+      if (this.PrintMembers(builder))
+        builder.Append(' ');
+      builder.Append('}');
+      return builder.ToString();
+    }
+
+    [CompilerGenerated]
+    protected virtual bool PrintMembers(StringBuilder builder)
+    {
+      RuntimeHelpers.EnsureSufficientExecutionStack();
+      builder.Append("x = ");
+      builder.Append(this.x.ToString());
+      builder.Append(", y = ");
+      builder.Append(this.y.ToString());
+      return true;
+    }
+
+    [NullableContext(2)]
+    [CompilerGenerated]
+    [SpecialName]
+    public static bool op_Inequality(Point left, Point right)
+    {
+      return !Point.op_Equality(left, right);
+    }
+
+    [NullableContext(2)]
+    [CompilerGenerated]
+    [SpecialName]
+    public static bool op_Equality(Point left, Point right)
+    {
+      if ((object) left == (object) right)
+        return true;
+      return (object) left != null && left.Equals(right);
+    }
+
+    [CompilerGenerated]
+    public override int GetHashCode()
+    {
+      return (EqualityComparer<Type>.Default.GetHashCode(this.EqualityContract) * -1521134295 + EqualityComparer<int>.Default.GetHashCode(this.\u003Cx\u003Ek__BackingField)) * -1521134295 + EqualityComparer<int>.Default.GetHashCode(this.\u003Cy\u003Ek__BackingField);
+    }
+
+    [NullableContext(2)]
+    [CompilerGenerated]
+    public override bool Equals(object obj)
+    {
+      return this.Equals(obj as Point);
+    }
+
+    [NullableContext(2)]
+    [CompilerGenerated]
+    public virtual bool Equals(Point other)
+    {
+      if ((object) this == (object) other)
+        return true;
+      return (object) other != null && Type.op_Equality(this.EqualityContract, other.EqualityContract) && EqualityComparer<int>.Default.Equals(this.\u003Cx\u003Ek__BackingField, other.\u003Cx\u003Ek__BackingField) && EqualityComparer<int>.Default.Equals(this.\u003Cy\u003Ek__BackingField, other.\u003Cy\u003Ek__BackingField);
+    }
+
+    [CompilerGenerated]
+    public virtual Point \u003CClone\u003E\u0024()
+    {
+      return new Point(this);
+    }
+
+    [CompilerGenerated]
+    protected Point(Point original)
+    {
+      base.\u002Ector();
+      this.\u003Cx\u003Ek__BackingField = original.\u003Cx\u003Ek__BackingField;
+      this.\u003Cy\u003Ek__BackingField = original.\u003Cy\u003Ek__BackingField;
+    }
+
+    [CompilerGenerated]
+    public void Deconstruct(out int x, out int y)
+    {
+      x = this.x;
+      y = this.y;
+    }
+  }
+}
+
+```
+
 ### Top-Level Calls [35]
 ### Initial Setters [36]
 ### Pattern Matching Improvements [37]

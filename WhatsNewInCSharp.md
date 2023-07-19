@@ -75,6 +75,7 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
             - [Records Equality](#records-equality)
             - [Positional Records](#positional-records)
             - [GetHashCode](#gethashcode)
+            - [Records With Expressions](#records-with-expressions)
         - [Top-Level Calls [35]](#top-level-calls-35)
         - [Initial Setters [36]](#initial-setters-36)
         - [Pattern Matching Improvements [37]](#pattern-matching-improvements-37)
@@ -2269,6 +2270,64 @@ namespace PositionalRecords
 }
 
 ```
+
+#### Records With Expressions
+
+"with" = Clone() = Shallow Copy
+
+```cs
+namespace RecordsWithExpressions
+{
+    public record Color
+    {
+        public Color(string name, bool isMetallic)
+        {
+            Name = name;
+            IsMetallic = isMetallic;
+        }
+        public Color(){ }
+
+        public string Name { get; set; }
+        public bool IsMetallic { get; set; }
+    }
+
+    public record Car
+    {
+        public Color Color { get; set; }
+        public string Engine { get; set; }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Car myFirstCar = new() 
+            { 
+                Color = new() { Name = "Black", IsMetallic = false }, 
+                Engine = "V6" 
+            };
+
+            Car upgradedCar = myFirstCar with { Engine = "V8" }; 
+            // car - cloned and modified
+            // Shallow copy! Unfortunately!
+
+            upgradedCar.Color.IsMetallic = true; // Both cars are metallic now!
+
+            Console.WriteLine(myFirstCar);
+            Console.WriteLine(upgradedCar);
+            //Car { Color = Color { Name = Black, IsMetalic = True }, Engine = V6 }
+            //Car { Color = Color { Name = Black, IsMetalic = True }, Engine = V8 }
+
+            // The reason: "with" = Clone() = shallow copy with references to the Color, 
+            // Upgraded car refers to the same Color object.
+
+            // Need Deep copy? - implement Prototype pattern, Serialization/De-serialization
+            // Deep Copy is hard => MS didn't it.
+        }
+    }
+}
+```
+
 
 ### Top-Level Calls [35]
 ### Initial Setters [36]

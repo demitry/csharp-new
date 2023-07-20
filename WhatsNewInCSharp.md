@@ -2781,6 +2781,19 @@ p.X++; // Will not compile
 
 ### Glogal Using Derictives
 
+With C# 10 you can use global using directives that the compiler will consider for the whole project.
+
+- fights against endless duplication
+- Having "using System;" everywhere is repetitive
+- Instead we have **global using System;**
+- Put global using in any file
+- Make sence to have GlobalUsings.cs
+- New .NET 6 projects include several global usings that are implicit:
+
+```xml
+<ImplicitUsings>enable</ImplicitUsings>
+```
+
 ### File-Scoped Namespace Declaration
 
 ### Extended Property Patterns

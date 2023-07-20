@@ -2796,6 +2796,29 @@ With C# 10 you can use global using directives that the compiler will consider f
 
 ### File-Scoped Namespace Declaration
 
+Each namespace Foo.Bar {} causes indentation
+
+It is annoing
+
+In C# 10 you can write
+
+```cs
+namespace Foo.Bar;
+
+class Whatever {...}
+```
+
+Everything after will be placed in that namespace;
+
+Cool!
+
+Rider has refactoring options:
+
+"To file-scoped namespace in project"
+"To file-scoped namespace in solution"
+
+Wow!
+
 ### Extended Property Patterns
 
 ### Generic Attributes

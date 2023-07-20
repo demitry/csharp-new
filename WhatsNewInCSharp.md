@@ -81,9 +81,11 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
         - [Pattern Matching Improvements [37]](#pattern-matching-improvements-37)
         - [Target-Typed New [38]](#target-typed-new-38)
         - [Source Generators [39]](#source-generators-39)
+            - [MS link](#ms-link)
             - [Source Generators](#source-generators)
             - [How does it work?](#how-does-it-work)
             - [Compared to](#compared-to)
+            - [Demo](#demo)
         - [Partial Method Syntax and Module Initializers [40]](#partial-method-syntax-and-module-initializers-40)
     - [Section 7: What's New in C# 10](#section-7-whats-new-in-c-10)
         - [What's New in C# 10 [41]](#whats-new-in-c-10-41)
@@ -2583,6 +2585,10 @@ namespace TargetTypedNew
 
 ### Source Generators [39]
 
+#### MS link
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview>
+
 #### Source Generators
 
 - Sometimes you need to generate code (plain text)
@@ -2612,6 +2618,38 @@ namespace TargetTypedNew
 - T4 (text templating transformation, Visual Studio feature)
   - Can access project info
 - Source Generator is a compiler feature
+
+#### Demo
+
+Generator project - class library:
+
+nugets:
+ 
+- Microsoft.CodeAnalysis.Analyzers
+- Microsoft.CodeAnalysis.Common
+
+Demo project: Add project reference to the Generator library
+
+Gen project
+
+Add
+
+OutputItemType="Analyzer"
+
+ReferenceOutputAssembly = false
+
+Demo.csproj
+
+```xml
+  <ItemGroup>
+    <ProjectReference Include="..\Generator\Generator.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+```
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview>
 
 ### Partial Method Syntax and Module Initializers [40]
 

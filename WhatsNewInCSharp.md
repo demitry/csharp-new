@@ -86,7 +86,12 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
             - [How does it work?](#how-does-it-work)
             - [Compared to](#compared-to)
             - [Demo](#demo)
-        - [Partial Method Syntax and Module Initializers [40]](#partial-method-syntax-and-module-initializers-40)
+        - [Partial Method Syntax [40]](#partial-method-syntax-40)
+            - [Partial methods](#partial-methods)
+        - [Module Initializers [40]](#module-initializers-40)
+            - [Module Initializers Feature](#module-initializers-feature)
+            - [Module Initializer Runtime Guarantees](#module-initializer-runtime-guarantees)
+            - [Module Initializer Restrictions](#module-initializer-restrictions)
     - [Section 7: What's New in C# 10](#section-7-whats-new-in-c-10)
         - [What's New in C# 10 [41]](#whats-new-in-c-10-41)
 
@@ -2651,7 +2656,65 @@ Demo.csproj
 
 <https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview>
 
-### Partial Method Syntax and Module Initializers [40]
+### Partial Method Syntax [40]
+
+#### Partial methods
+
+Partial methods are not new
+
+- partial void Foo();
+- Can call Foo() even if there is no implementation
+- Code generator can implement if
+- partial void Foo() { ... actual code ... }
+
+- In prior versions of C#, partial methods are always void and have no params
+- C#9 extends what is allowed at the expense of requiring an implementation part
+  - Non-void retrun types
+  - Out params
+  - Accessibility keywords
+
+### Module Initializers [40]
+
+#### Module Initializers Feature
+
+- Not a new feature to .NET
+- Developers didn't have clear access
+- Module = typicaly assemnly = axecutable or library
+- Module Initializer gets called when the module is first loaded
+  - Eager, one-time initialization
+- Use Cases
+  - Enable source generators to run global init login without the user calling anything
+  - Hold on! But we have static constructors but Module Initializers are better / healthier
+  - Initialize application state before the application starts
+  - Avoid deadlock and startup race conditions
+  - Startup dependency resolutions (unit testing, DI, web, etc.)
+  - Security: Environment variables determined and locked at startup
+  - Security: Validation and vulnerability checks
+
+#### Module Initializer Runtime Guarantees
+
+1. A Module Initializer is executed at, or sometime before, first access to any static field or first invocation of the method defined in module
+
+2. Shall run exactly once for any given module unless explicitly called by user code.
+
+3. No method other than those called directly from the module initializer will be able to access the types, methods, or data in the module before its initializer completes execution.
+
+#### Module Initializer Restrictions
+
+- Any method decorated as
+
+```
+[ModuleInitializer]
+```
+
+- MUST BE **static**, **void**, **parameterless**
+- Cannot be generic or containe in generic type
+- Must be accessible from the module as **public** or **internal**
+  - Cannot be a local function
+
+We had the similar solution for the module initialization in the Fody library
+
+Now he have it as part of the language
 
 ## Section 7: What's New in C# 10
 

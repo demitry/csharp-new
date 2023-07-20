@@ -93,7 +93,17 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
             - [Module Initializer Runtime Guarantees](#module-initializer-runtime-guarantees)
             - [Module Initializer Restrictions](#module-initializer-restrictions)
     - [Section 7: What's New in C# 10](#section-7-whats-new-in-c-10)
-        - [What's New in C# 10 [41]](#whats-new-in-c-10-41)
+        - [Record Structs](#record-structs)
+            - [What are Record Structs](#what-are-record-structs)
+            - [Record Struncts Restrinctions](#record-struncts-restrinctions)
+            - [Uses of Record Structs](#uses-of-record-structs)
+            - [Recommended - readonly record struct](#recommended---readonly-record-struct)
+        - [Glogal Using Derictives](#glogal-using-derictives)
+        - [File-Scoped Namespace Declaration](#file-scoped-namespace-declaration)
+        - [Extended Property Patterns](#extended-property-patterns)
+        - [Generic Attributes](#generic-attributes)
+        - [Lambda Improvements lots!](#lambda-improvements-lots)
+        - [Enchanced #line direcrives](#enchanced-line-direcrives)
 
 <!-- /TOC -->
 
@@ -2718,5 +2728,65 @@ Now he have it as part of the language
 
 ## Section 7: What's New in C# 10
 
-### What's New in C# 10 [41]
+<https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10>
 
+### Record Structs
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record>
+
+#### What are Record Structs
+
+- Same as record classes BUT value types!
+- Synteshized members
+  - Constructor
+  - Deconstruct
+  - Equals/==/!=
+  - GetHashCode
+  - PrintMembers
+  - ToString
+- Predictable differences to record classes
+  - Equals() DOES NOT do null checks! because the sctruct cannot be null
+- Performance can be sugnificantly better than ordinary structs
+  - Also better than value tuples
+  - Standard struct Equals()/GetHashCode() implementations are bad (boxing etc.))
+  - Record struct can be 20x faster with 100 % less allocations
+
+#### Record Struncts Restrinctions
+
+- Cannot have a Clone() member
+- Instance fields can be unsafe
+- Cannot declare destructor
+
+#### Uses of Record Structs
+
+- Small composite value types
+```cs
+record struct Point<T> (T X, T Y) { ... }
+Point<int> p = new (2,3);
+```
+
+- Record Struncts are **mutable**
+
+- Mutable structs are **DANGEROUS**!
+
+player.Position.X++; // does nothing, is this a new value through copying !!!?
+
+#### Recommended - readonly record struct
+
+Recommend:
+```cs
+readonly record struct Point ...
+p.X++; // Will not compile
+```
+
+### Glogal Using Derictives
+
+### File-Scoped Namespace Declaration
+
+### Extended Property Patterns
+
+### Generic Attributes
+
+### Lambda Improvements (lots!)
+
+### Enchanced #line direcrives

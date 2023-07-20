@@ -1,0 +1,1 @@
+﻿class Foo { public string Bar = "bar"; }

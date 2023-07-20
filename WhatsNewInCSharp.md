@@ -81,6 +81,9 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
         - [Pattern Matching Improvements [37]](#pattern-matching-improvements-37)
         - [Target-Typed New [38]](#target-typed-new-38)
         - [Source Generators [39]](#source-generators-39)
+            - [Source Generators](#source-generators)
+            - [How does it work?](#how-does-it-work)
+            - [Compared to](#compared-to)
         - [Partial Method Syntax and Module Initializers [40]](#partial-method-syntax-and-module-initializers-40)
     - [Section 7: What's New in C# 10](#section-7-whats-new-in-c-10)
         - [What's New in C# 10 [41]](#whats-new-in-c-10-41)
@@ -2579,6 +2582,36 @@ namespace TargetTypedNew
 ```
 
 ### Source Generators [39]
+
+#### Source Generators
+
+- Sometimes you need to generate code (plain text)
+- C#/Roslyn doesn't have proper metaprogramming support
+  - And maybe never will have
+  - See Fody, PostSharp etc.
+- Injecting your code into compiler and altering existing structures is still impossible
+- But **we can add source files to project at compile time**
+- We can have multiple generators attached to the same project 
+- Addictive process, order does not matter, no you cannot modify existing structures, no different generators can interract.
+
+#### How does it work?
+
+- You make a separate .NET Standard lib prj
+- Ref nuget Microsoft.CodeAnalysis.Analyzers
+- To Make a source generator
+  - Make a class that implements ISourceGenerator
+  - Decorate it with Generator attribute
+- The generator spits out text (strings) that get added as source files.
+- Reference the analyzer project in your own project - **be sure to reference it as an analyzer**!
+
+#### Compared to
+
+- You can generate code using any program
+  - Any language (Haskel,...)
+  - Use an object model (e.g. Roslyn) instead of text - very verbose, not realistic
+- T4 (text templating transformation, Visual Studio feature)
+  - Can access project info
+- Source Generator is a compiler feature
 
 ### Partial Method Syntax and Module Initializers [40]
 

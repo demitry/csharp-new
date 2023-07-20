@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopLevelCalls", "TopLevelCa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitialSetters", "InitialSetters\InitialSetters.csproj", "{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternMatchingImprovements", "PatternMatchingImprovements\PatternMatchingImprovements.csproj", "{F4132A93-6300-4E84-AB77-17297B0A53A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA33D5FF-07D4-407C-B0F0-5C6C7758CB89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4132A93-6300-4E84-AB77-17297B0A53A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4132A93-6300-4E84-AB77-17297B0A53A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4132A93-6300-4E84-AB77-17297B0A53A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4132A93-6300-4E84-AB77-17297B0A53A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

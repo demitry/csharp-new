@@ -103,6 +103,9 @@ Learn about latest features of C#7, C#8, C#9 and C#10, **5 video hours**, **Dmit
         - [Extended Property Patterns](#extended-property-patterns)
         - [Generic Attributes](#generic-attributes)
         - [Lambda Improvements lots!](#lambda-improvements-lots)
+            - [Attributes on lambda functions](#attributes-on-lambda-functions)
+            - [Explicit return type](#explicit-return-type)
+            - [Infer a natural delegate for lambdas and method groups](#infer-a-natural-delegate-for-lambdas-and-method-groups)
         - [Enchanced #line direcrives](#enchanced-line-direcrives)
 
 <!-- /TOC -->
@@ -2838,6 +2841,139 @@ if(obj is Developer {
 
 ### Generic Attributes
 
+- Current approach to taking a type in an attribute
+
+```cs
+class MyAttribute : Attribute {
+    MyAttribute(Type type) { ... }
+}
+//Usage: [My(typeof(Foo))]
+```
+
+- Now we can use type parameters instead:
+
+```cs
+class My<T> : Attribute {}
+//Usage: 
+[Attr<fload>] public void Bar () { ... }
+```
+
+- Restrictions: Type parameters from containing type cannot be used in attributes
+
+```cs
+[SomeAttr<T>] void Foo () { ... } //error
+[SomeAttr<List<T>>] void Bar () { ... } //error
+```
+
 ### Lambda Improvements (lots!)
 
+3 catergories of improvements:
+
+#### Attributes on lambda functions
+
+<https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#attributes>
+
+- Now we can add attributes to lambda expressions:
+
+```cs
+f = [A] () => {};
+```
+
+- attributes om the whole lambda VS. attributes on parameter
+
+```cs
+  f = [return: A] x => x; // syntax error at "=>"
+  f = [return: A] (x) => x; // [A] lambda
+```
+
+- Multiple Attributes
+
+```cs
+var f = [A1, A2][A3] () => {}; // ok
+var g = ([A1][A2, A3] int x)  () => {}; // ok
+```
+
+- Attributes are not supported for delegate {} symtax:
+
+```cs
+var f = [A] delegate { return 1;}; // syntax error at delegate
+var g = delegate ([A] int x) {return x;}; // syntax error at "["
+```
+
+- Collectiona initializers also use [A] syntax, so parser will differentiate:
+
+```cs
+var y = new C { [A] = x}; // ok: y[A] = x
+var z = new C { [A] x = x}; // ok: z[0] = [A] x => x
+```
+
+```cs
+// ?[ is conditional element access, so cannot go in front
+x = b ? [A]; // ok
+y = b ? [A] () -> {} : z; // syntax error at '('
+
+```
+
+#### Explicit return type
+
+- You can specify an explicit return type before the parameter list
+
+```cs
+f = T () => default; // ok
+f = ref int (ref int x) => ref x; // ok
+f = static void (_) => {} // ok
+```
+
+- Not supported for delegate {} syntax
+
+```cs
+f = delegate int { return 1; }; // syntax error
+f = delegate int (int x) { return x; }; // syntax error
+```
+
+Exact method type inference from lambda return:
+
+```cs
+static void F<T> (Func<T, T> f) { ... }
+F(int (i) => i); // Func<int, int>
+```
+
+- Variance conversion not allowed from lambda return type to delegate return type
+
+```cs
+Func<object> f1 = string () => null; // error
+Func<object?> f2 = object () => x; // warning
+```
+
+- Lambda expressions with ref return types are allowed within expressions (without additional parens):
+
+```cs
+d = ref int () => x; // d = (ref int () => x);
+F(ref int () => x); // F((ref int () => x));
+```
+
+- Var cannot be used as an explicit return type
+
+```cs
+d = var (var v) => v; // error:
+// error: contextual keyword 'var' cannot be used as an explicit return type
+```
+
+#### Infer a natural delegate for lambdas and method groups
+
+- Finally, lambdas waill be inferred to Action/Func<>
+
+```cs
+var f3 = () => 1; // System.Func<int>
+
+var f4 = string () => null; // System.Func<string>
+
+var f5 = delegate (object o) {}; // System.Action<object>
+```
+
 ### Enchanced #line direcrives
+
+```
+#line
+```
+debugging and diagnostics

@@ -2814,12 +2814,27 @@ Cool!
 
 Rider has refactoring options:
 
-"To file-scoped namespace in project"
-"To file-scoped namespace in solution"
-
-Wow!
+- "To file-scoped namespace in project"
+- "To file-scoped namespace in solution"
 
 ### Extended Property Patterns
+
+```cs
+if(obj is Developer
+    { Manager.FirstName: "Sam" } d)
+    // use d
+```
+
+d in going to be null if Manager.FirstName is not "Sam"
+
+```cs
+if(obj is Developer {
+    Manager.FirstName.Lenght : 6,
+    Manager.YearOfBirth: 1980 } dev)
+    {
+        // use dev
+    }
+```
 
 ### Generic Attributes
 
